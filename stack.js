@@ -77,12 +77,26 @@ display();//Saule, 2, 1
 
 // Write a function that takes a string of letters and returns true or false to determine whether it is palindromic. For example:
 
-// function is_palindrome(s) {
-//     s = s.toLowerCase().replace(/[^a-z]/g, "");
-//     // your code goes here
-// }
+function is_palindrome(s) {
+    s = s.toLowerCase().replace(/[^a-z]/g, "");
+    //s="dad";
+    let stack = new Stack();
+    for (let i=0; i < s.length; i++){
+        stack.push(s.charAt(i));
+    }
+    let reverse = '';
+    while (stack.top !== null){
+        reverse += stack.pop();
+    }
+    if (reverse === s) {
+        return true;
+    }
+    return false;
+  //
+}
 
-// // true, true, true
-// console.log(is_palindrome("dad"));
-// console.log(is_palindrome("A man, a plan, a canal: Panama"));
-// console.log(is_palindrome("1001"));
+// true, true, true
+//console.log(is_palindrome("dad"));
+//console.log(is_palindrome("A man, a plan, a canal: Panama"));
+console.log(is_palindrome("cat"));
+console.log(is_palindrome("1001"));
