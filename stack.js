@@ -1,10 +1,11 @@
 'use strict';
 
-const createNode = (data=null, next=null)  => 
-  {
-  data,
-  next;
-};
+function createNode (data=null, next=null) {
+  return {
+    data,
+    next
+  };
+}
 
 class Stack {
   constructor() {
@@ -16,7 +17,7 @@ class Stack {
     //top of the stack
     if (this.top === null) {
       this.top = createNode(data);
-      return;
+      return this.top;
     }
 
     //if the top already has something then create a new node
@@ -62,10 +63,10 @@ let s = new Stack();
 s.push(1);
 s.push(2);
 s.push('Jamie');
-console.log('Top of stack:', peek());
+console.log('Top of stack:', peek());//Jamie
 
-s.pop();
+s.pop();//Jamie was popped out....orphan...sad
 s.push('Saule');
-console.log('Top of stack:', peek());
+console.log('Top of stack:', peek());//Saule
 
-display();
+display();//Saule, 2, 1
