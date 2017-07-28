@@ -114,7 +114,7 @@ function is_palindrome(s) {
 
 const matchingParenthesis = (str) => {
   //str = '(1 + 2 * 3';
-  let stack = new Stack;
+  let stack = new Stack();
 
   for(let i = 0; i < str.length; i++) {
     stack.push(str.charAt(i));
@@ -146,7 +146,7 @@ const matchingParenthesis = (str) => {
 //str = (1 + [2)]
 
 const expectedParenthesis = (str) => {
-  let stack = new Stack;
+  let stack = new Stack();
 
   //note if there is a situation like '{hello}'
 
