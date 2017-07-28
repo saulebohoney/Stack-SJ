@@ -39,7 +39,7 @@ class Stack {
 }
 
 
-const peek = () => {
+const peek = (stack) => {
     //if the top of the stack does not have anything 
     //then the stack is empty
     //otherwise return what's on the top
@@ -58,7 +58,7 @@ const display = () => {
   }
 };
     
-let stack = new Stack();
+// let stack = new Stack();
  
 // s.push(1);
 // s.push(2);
@@ -70,6 +70,9 @@ let stack = new Stack();
 // console.log('Top of stack:', peek());//Saule
 
 // display();//Saule, 2, 1
+
+
+
 
 // Palindromes
 
@@ -111,22 +114,7 @@ function is_palindrome(s) {
 
 const matchingParenthesis = (str) => {
   //str = '(1 + 2 * 3';
-  let open = 0;
-  let close = 0;
-  let openLocation = '';
-  let closeLocation = '';
-  
-  // for(let i = 0; i < str.length; i++) {
-  //   if(str.charAt(i) === '(') {
-  //     open += 1;
-  //     openLocation = i;
-  //     stack.push(str.charAt(i));
-  //   } else if (str.charAt(i) === ')') {
-  //     close += 1;
-  //     closeLocation = i;
-  //     stack.push(str.charAt(i));
-  //   }
-  // }
+  let stack = new Stack;
 
   for(let i = 0; i < str.length; i++) {
     stack.push(str.charAt(i));
@@ -149,12 +137,54 @@ const matchingParenthesis = (str) => {
 
 };
 
-console.log(matchingParenthesis('(1 + 2 * 3'));
-console.log(matchingParenthesis('1 + 2 * 3)'));
-console.log(matchingParenthesis('(1 + 2 * 3)'));
+// console.log(matchingParenthesis('(1 + 2 * 3'));
+// console.log(matchingParenthesis('1 + 2 * 3)'));
+// console.log(matchingParenthesis('(1 + 2 * 3)'));
+
 
 // Extension exercise: Recognize three pairs of brackets: (), [], and {}. These must be correctly nested; "([)]" is incorrect, and should report an error at the ), stating that you were expecting a ] but found a ). If this is starting to look and sound very familiar, congratulations - you're beginning to write a simple language parser!
+//str = (1 + [2)]
 
+const expectedParenthesis = (str) => {
+  let stack = new Stack;
+
+  //note if there is a situation like '{hello}'
+
+  for(let i = 0; i < str.length; i++) {
+    if(str.charAt(i) === '(' || str.charAt(i) === '[') {
+      stack.push(str.charAt(i));
+    } else if (str.charAt(i) === ')') {
+      if(peek(stack) === '(') {
+        stack.pop();
+      } else if (peek(stack) === '[') {
+        return 'unclosed bracket';
+      } else {
+        return 'opening bracket is missing';
+      }
+    } else if (str.charAt(i) === ']') {
+      if(peek(stack) === '[') {
+        stack.pop();
+      } else if (peek(stack) === '(') {
+        return 'unclosed bracket';
+      } else {
+        return 'opening square bracket is missing';
+      }
+    }
+  }
+
+  if(peek(stack) === null) {
+    return 'Everything matches';
+  } else {
+    return 'closed bracket is missing';
+  }
+    //return "Expected ')' but instead saw '['"
+};
+
+// console.log(expectedParenthesis('(())'));
+// console.log(expectedParenthesis('(()))'));
+// console.log(expectedParenthesis('((())'));
+console.log(expectedParenthesis('([)]'));
+console.log(expectedParenthesis('([])'));
 
 
 // Extension extension exercise: Also recognize two types of quote character: "" and ''. Inside quotes, brackets aren't counted at all - in fact, nothing is counted until you reach the corresponding close quote.
