@@ -118,10 +118,10 @@ const matchingParenthesis = (str) => {
 
   for(let i = 0; i < str.length; i++) {
     stack.push(str.charAt(i));
-    if(peek() === '(') {
+    if(peek(stack) === '(') {
       open += 1;
       openLocation = i;
-    } else if (peek() === ')') {
+    } else if (peek(stack) === ')') {
       close += 1;
       closeLocation = i;
     }
