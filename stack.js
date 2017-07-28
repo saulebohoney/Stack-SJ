@@ -70,3 +70,19 @@ s.push('Saule');
 console.log('Top of stack:', peek());//Saule
 
 display();//Saule, 2, 1
+
+// Palindromes
+
+// A palindrome is a word, phrase, or number that is spelled the same forward and backward. For example, “dad” is a palindrome; “A man, a plan, a canal: Panama” is a palindrome if you take out the spaces and ignore the punctuation; and 1,001 is a numeric palindrome. We can use a stack to determine whether or not a given string is a palindrome.
+
+// Write a function that takes a string of letters and returns true or false to determine whether it is palindromic. For example:
+
+// function is_palindrome(s) {
+//     s = s.toLowerCase().replace(/[^a-z]/g, "");
+//     // your code goes here
+// }
+
+// // true, true, true
+// console.log(is_palindrome("dad"));
+// console.log(is_palindrome("A man, a plan, a canal: Panama"));
+// console.log(is_palindrome("1001"));
