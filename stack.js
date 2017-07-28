@@ -1,40 +1,40 @@
 'use strict';
 
 function createNode (data=null, next=null) {
-  return {
-    data,
-    next
-  };
+    return {
+        data,
+        next
+    };
 }
 
 class Stack {
-  constructor() {
-    this.top = null;
-  }
+    constructor() {
+        this.top = null;
+    }
 
-  push(data) {
+    push(data) {
     //if the top of the stack is empty, then the data will be the
     //top of the stack
-    if (this.top === null) {
-      this.top = createNode(data);
-      return this.top;
-    }
+        if (this.top === null) {
+            this.top = createNode(data);
+            return this.top;
+        }
 
     //if the top already has something then create a new node
     //add data to the new node
     // have the pointer point to the top 
-    const node = createNode(data, this.top);
-    this.top = node;
-  }
+        const node = createNode(data, this.top);
+        this.top = node;
+    }
 
-  pop() {
+    pop() {
       //in order to remove the top of the stack, you have to point
       //the pointer to the next item and that next item becomes the
       //top of the stack
-    const node = this.top;
-    this.top = node.next;
-    return node.data;
-  }
+        const node = this.top;
+        this.top = node.next;
+        return node.data;
+    }
 
 }
 
@@ -43,19 +43,19 @@ const peek = (stack) => {
     //if the top of the stack does not have anything 
     //then the stack is empty
     //otherwise return what's on the top
-  if (stack.top === null) {
-    return null;
-  }
-  return stack.top.data;
+    if (stack.top === null) {
+        return null;
+    }
+    return stack.top.data;
 };
 
 const display = () => {
     // displays the entire contents of the stack
-  let node = stack.top;
-  while (node !== null) {
-    console.log(node.data);
-    node = node.next;
-  }
+    let node = stack.top;
+    while (node !== null) {
+        console.log(node.data);
+        node = node.next;
+    }
 };
     
 // let stack = new Stack();
@@ -81,19 +81,19 @@ const display = () => {
 // Write a function that takes a string of letters and returns true or false to determine whether it is palindromic. For example:
 
 function is_palindrome(s) {
-  s = s.toLowerCase().replace(/[^a-z]/g, '');
+    s = s.toLowerCase().replace(/[^a-z]/g, '');
     //s="dad";
-  for (let i=0; i < s.length; i++){
-    stack.push(s.charAt(i));
-  }
-  let reverse = '';
-  while (stack.top !== null){
-    reverse += stack.pop();
-  }
-  if (reverse === s) {
-    return true;
-  }
-  return false;
+    for (let i=0; i < s.length; i++){
+        stack.push(s.charAt(i));
+    }
+    let reverse = '';
+    while (stack.top !== null){
+        reverse += stack.pop();
+    }
+    if (reverse === s) {
+        return true;
+    }
+    return false;
   //
 }
 
@@ -114,32 +114,29 @@ function is_palindrome(s) {
 
 const matchingParenthesis = (str) => {
   //str = '(1 + 2 * 3';
-  let stack = new Stack();
+    let stack = new Stack();
 
-  for(let i = 0; i < str.length; i++) {
-    stack.push(str.charAt(i));
-    if(peek(stack) === '(') {
-      open += 1;
-      openLocation = i;
-    } else if (peek(stack) === ')') {
-      close += 1;
-      closeLocation = i;
+    for(let i = 0; i < str.length; i++) {
+        if(str.charAt(i)=== '('){
+            stack.push(str.charAt(i));
+        } else if (str.charAt(i)===')'){
+          if (peek(stack)==='('){
+            stack.pop();
+        } else {
+            return 'open paran is missing';
+        }
+      }
     }
-  }
-
-  if(open < close) {
-    return ('Missing open parenthesis, close parenthesis at index ' + closeLocation);
-  } else if (close < open) {
-    return ('Missing close parenthesis, open parenthesis at index ' + openLocation);
-  } else {
-    return ('All is well!');
-  }
-
+    if (peek(stack)===null) {
+        return 'everything matches';
+    } else {
+        return 'closed paran is missing';
+    }
 };
 
-// console.log(matchingParenthesis('(1 + 2 * 3'));
-// console.log(matchingParenthesis('1 + 2 * 3)'));
-// console.log(matchingParenthesis('(1 + 2 * 3)'));
+console.log(matchingParenthesis('(1 + 2 * 3'));
+console.log(matchingParenthesis('1 + 2 * 3)'));
+console.log(matchingParenthesis('(1 + 2 * 3)'));
 
 
 // Extension exercise: Recognize three pairs of brackets: (), [], and {}. These must be correctly nested; "([)]" is incorrect, and should report an error at the ), stating that you were expecting a ] but found a ). If this is starting to look and sound very familiar, congratulations - you're beginning to write a simple language parser!
@@ -150,41 +147,41 @@ const expectedParenthesis = (str) => {
 
   //note if there is a situation like '{hello}'
 
-  for(let i = 0; i < str.length; i++) {
-    if(str.charAt(i) === '(' || str.charAt(i) === '[') {
-      stack.push(str.charAt(i));
-    } else if (str.charAt(i) === ')') {
-      if(peek(stack) === '(') {
-        stack.pop();
-      } else if (peek(stack) === '[') {
-        return 'unclosed bracket';
-      } else {
-        return 'opening bracket is missing';
-      }
-    } else if (str.charAt(i) === ']') {
-      if(peek(stack) === '[') {
-        stack.pop();
-      } else if (peek(stack) === '(') {
-        return 'unclosed bracket';
-      } else {
-        return 'opening square bracket is missing';
-      }
+    for(let i = 0; i < str.length; i++) {
+        if(str.charAt(i) === '(' || str.charAt(i) === '[') {
+            stack.push(str.charAt(i));
+        } else if (str.charAt(i) === ')') {
+          if(peek(stack) === '(') {
+            stack.pop();
+        } else if (peek(stack) === '[') {
+            return 'unclosed bracket';
+        } else {
+            return 'opening bracket is missing';
+        }
+      } else if (str.charAt(i) === ']') {
+        if(peek(stack) === '[') {
+            stack.pop();
+        } else if (peek(stack) === '(') {
+            return 'unclosed bracket';
+        } else {
+            return 'opening square bracket is missing';
+        }
     }
-  }
+    }
 
-  if(peek(stack) === null) {
-    return 'Everything matches';
-  } else {
-    return 'closed bracket is missing';
-  }
+    if(peek(stack) === null) {
+        return 'Everything matches';
+    } else {
+        return 'closed bracket is missing';
+    }
     //return "Expected ')' but instead saw '['"
 };
 
 // console.log(expectedParenthesis('(())'));
 // console.log(expectedParenthesis('(()))'));
 // console.log(expectedParenthesis('((())'));
-console.log(expectedParenthesis('([)]'));
-console.log(expectedParenthesis('([])'));
+// console.log(expectedParenthesis('([)]'));
+// console.log(expectedParenthesis('([])'));
 
 
 // Extension extension exercise: Also recognize two types of quote character: "" and ''. Inside quotes, brackets aren't counted at all - in fact, nothing is counted until you reach the corresponding close quote.
