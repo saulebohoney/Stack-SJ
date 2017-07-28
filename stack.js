@@ -144,11 +144,28 @@ const matchingParenthesis = (str) => {
 const expectedParenthesis = (str) => {
   let stack = new Stack();
   let clean = str.replace(/[a-z]/g, '');
+
   if (clean === '') {
     return 'there are no brackets';
   }
 
+  let typeQuote = null;
+
   for(let i = 0; i < str.length; i++) {
+    if(typeQuote === null && (str.charAt(i) === "'" || str.charAt(i) === '"')) {
+      typeQuote = str.charAt(i);
+      continue;
+    } 
+
+    if(str.charAt(i) === typeQuote) {
+      typeQuote = null;
+      continue;
+    }
+
+    if(typeQuote) {
+      continue;
+    }
+
     if(str.charAt(i) === '(' || str.charAt(i) === '[' || str.charAt(i) === '{') {
         stack.push(str.charAt(i));
     } else if (str.charAt(i) === ')') {
@@ -186,16 +203,20 @@ const expectedParenthesis = (str) => {
     //return "Expected ')' but instead saw '['"
 };
 
-console.log(expectedParenthesis('([)]'));
-console.log(expectedParenthesis('{[]()})'));
-console.log(expectedParenthesis('([])'));
-console.log(expectedParenthesis('{hello}'));
-console.log(expectedParenthesis('hello'));
+// console.log(expectedParenthesis('([)]'));
+// console.log(expectedParenthesis('{[]()})'));
+// console.log(expectedParenthesis('([])'));
+// console.log(expectedParenthesis('{hello}'));
+// console.log(expectedParenthesis('hello'));
+console.log(expectedParenthesis('"(["('));
+console.log(expectedParenthesis(`"Fred's Stuff" || ("Joes Stuff")`));
 
 // Extension extension exercise: Also recognize two types of quote character: "" and ''. Inside quotes, brackets aren't counted at all - in fact, nothing is counted until you reach the corresponding close quote.
 
 const quotes = (str) => {
   let stack = new Stack();
+  let quote = false;
   
+
 
 };
