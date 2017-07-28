@@ -73,7 +73,6 @@ const display = () => {
 
 
 
-
 // Palindromes
 
 // A palindrome is a word, phrase, or number that is spelled the same forward and backward. For example, “dad” is a palindrome; “A man, a plan, a canal: Panama” is a palindrome if you take out the spaces and ignore the punctuation; and 1,001 is a numeric palindrome. We can use a stack to determine whether or not a given string is a palindrome.
@@ -134,9 +133,9 @@ const matchingParenthesis = (str) => {
     }
 };
 
-console.log(matchingParenthesis('(1 + 2 * 3'));
-console.log(matchingParenthesis('1 + 2 * 3)'));
-console.log(matchingParenthesis('(1 + 2 * 3)'));
+// console.log(matchingParenthesis('(1 + 2 * 3'));
+// console.log(matchingParenthesis('1 + 2 * 3)'));
+// console.log(matchingParenthesis('(1 + 2 * 3)'));
 
 
 // Extension exercise: Recognize three pairs of brackets: (), [], and {}. These must be correctly nested; "([)]" is incorrect, and should report an error at the ), stating that you were expecting a ] but found a ). If this is starting to look and sound very familiar, congratulations - you're beginning to write a simple language parser!
@@ -144,45 +143,58 @@ console.log(matchingParenthesis('(1 + 2 * 3)'));
 
 const expectedParenthesis = (str) => {
   let stack = new Stack();
+  let clean = str.replace(/[a-z]/g, '');
+  if (clean === '') {
+    return 'there are no brackets';
+  }
 
-  //note if there is a situation like '{hello}'
-
-    for(let i = 0; i < str.length; i++) {
-        if(str.charAt(i) === '(' || str.charAt(i) === '[') {
-            stack.push(str.charAt(i));
-        } else if (str.charAt(i) === ')') {
-          if(peek(stack) === '(') {
-            stack.pop();
-        } else if (peek(stack) === '[') {
-            return 'unclosed bracket';
-        } else {
-            return 'opening bracket is missing';
-        }
-      } else if (str.charAt(i) === ']') {
-        if(peek(stack) === '[') {
-            stack.pop();
-        } else if (peek(stack) === '(') {
-            return 'unclosed bracket';
-        } else {
-            return 'opening square bracket is missing';
-        }
-    }
-    }
-
-    if(peek(stack) === null) {
-        return 'Everything matches';
+  for(let i = 0; i < str.length; i++) {
+    if(str.charAt(i) === '(' || str.charAt(i) === '[' || str.charAt(i) === '{') {
+        stack.push(str.charAt(i));
+    } else if (str.charAt(i) === ')') {
+      if(peek(stack) === '(') {
+        stack.pop();
+    } else if (peek(stack) === '[' || peek(stack) === '{') {
+        return 'unclosed bracket';
     } else {
-        return 'closed bracket is missing';
+        return 'opening bracket is missing';
     }
+  } else if (str.charAt(i) === ']') {
+    if(peek(stack) === '[') {
+        stack.pop();
+    } else if (peek(stack) === '(' || peek(stack) === '{') {
+        return 'unclosed bracket';
+    } else {
+        return 'opening square bracket is missing';
+    }
+  } else if (str.charAt(i) === '}') {
+      if(peek(stack) === '{') {
+          stack.pop();
+      } else if (peek(stack) === '(' || peek(stack) === '[') {
+          return 'unclosed bracket';
+      } else {
+          return 'opening square bracket is missing';
+      }
+    }
+  }
+
+  if(peek(stack) === null) {
+      return 'Everything matches';
+  } else {
+      return 'closed bracket is missing';
+  }
     //return "Expected ')' but instead saw '['"
 };
 
-// console.log(expectedParenthesis('(())'));
-// console.log(expectedParenthesis('(()))'));
-// console.log(expectedParenthesis('((())'));
-// console.log(expectedParenthesis('([)]'));
-// console.log(expectedParenthesis('([])'));
-
+console.log(expectedParenthesis('([)]'));
+console.log(expectedParenthesis('{[]()})'));
+console.log(expectedParenthesis('([])'));
+console.log(expectedParenthesis('{hello}'));
+console.log(expectedParenthesis('hello'));
 
 // Extension extension exercise: Also recognize two types of quote character: "" and ''. Inside quotes, brackets aren't counted at all - in fact, nothing is counted until you reach the corresponding close quote.
 
+const quotes = (str) => {
+  let stack = new Stack();
+
+};
